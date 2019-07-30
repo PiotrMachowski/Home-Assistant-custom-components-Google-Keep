@@ -41,6 +41,10 @@ wget https://github.com/PiotrMachowski/Home-Assistant-custom-components-Google-K
 
 * If you define more than one constraint (`titles`, `labels`, `pinned`) all of them will be applied and intersection of results will be returned.
 
+* **Do I have to use my Google Account password?**
+
+  You should be able to use App Password to use this component: [*documentation*](https://gkeepapi.readthedocs.io/en/latest/#logging-in)
+
 * **What to do if Home Assistant does not find this component?**
 
   Most likely you have to install additional dependency required for it to run. Activate Python environment Home Assistant is running in and use following command:
