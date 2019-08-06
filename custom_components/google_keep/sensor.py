@@ -1,4 +1,4 @@
-import gkeepapi
+import hashlib
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 from gkeepapi.node import NodeType
@@ -34,28 +34,28 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
     titles = config.get(CONF_TITLES)
     labels = config.get(CONF_LABELS)
     pinned = config.get(CONF_PINNED)
+    import gkeepapi
     keep = gkeepapi.Keep()
     login_success = keep.login(username, password)
     if not login_success:
         raise Exception('Invalid username or password')
     dev = []
-    hash_value = str(abs(hash((username, str(titles), str(labels), pinned))))[-10:]
+    hash_value = hashlib.md5(str((username, str(titles), str(labels), pinned)).encode()).hexdigest()[-10:]
     uid = '{}_{}'.format(sensor_name, hash_value)
     entity_id = async_generate_entity_id(ENTITY_ID_FORMAT, uid, hass=hass)
-    dev.append(GoogleKeepSensor(entity_id, sensor_name, username, password, titles, labels, pinned))
+    dev.append(GoogleKeepSensor(entity_id, sensor_name, username, keep, titles, labels, pinned))
     add_entities(dev, True)
 
 
 class GoogleKeepSensor(Entity):
-    def __init__(self, entity_id, name, username, password, titles, labels, pinned):
+    def __init__(self, entity_id, name, username, keep, titles, labels, pinned):
         self.entity_id = entity_id
         self._name = name
         self._username = username
         self._titles = titles
         self._labels = labels
         self._pinned = pinned
-        self._keep = gkeepapi.Keep()
-        self._keep.login(username, password)
+        self._keep = keep
         self._notes = []
         self._state = None
 
