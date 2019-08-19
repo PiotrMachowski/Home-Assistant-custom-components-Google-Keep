@@ -43,7 +43,11 @@ wget https://github.com/PiotrMachowski/Home-Assistant-custom-components-Google-K
 
 * **Do I have to use my Google Account password?**
 
-  You should be able to use App Password to use this component: [*documentation*](https://gkeepapi.readthedocs.io/en/latest/#logging-in)
+  You can set up an App Password to use this component.
+  * Go to [https://myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords)
+  * In `Select app` menu choose `other` and provide your own identifier (e.g. `Home Assistant`)
+  * Use generated password in sensor configuration (**Warning:** password will not be shown again!)
+  
 
 * **What to do if Home Assistant does not find this component?**
 
