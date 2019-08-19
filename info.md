@@ -31,6 +31,13 @@ sensor:
 
 * If you define more than one constraint (`titles`, `labels`, `pinned`) all of them will be applied and intersection of results will be returned.
 
+* **Do I have to use my Google Account password?**
+
+  You can set up an App Password to use this component.
+  * Go to [https://myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords)
+  * In `Select app` menu choose `other` and provide your own identifier (e.g. `Home Assistant`)
+  * Use generated password in sensor configuration (**Warning:** password will not be shown again!)
+
 * **What to do if Home Assistant does not find this component?**
 
   Most likely you have to install additional dependency required for it to run. Activate Python environment Home Assistant is running in and use following command:
