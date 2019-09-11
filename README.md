@@ -1,5 +1,8 @@
 # Google Keep sensor
 
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/custom-components/hacs)
+[![Community Forum](https://img.shields.io/badge/community-forum-brightgreen.svg?style=popout)](https://community.home-assistant.io/t/google-keep-custom-component-and-lovelace-card/131752)
+
 This sensor uses [*gkeepapi*](https://github.com/kiwiz/gkeepapi) to download a list of notes from [*Google Keep*](https://keep.google.com/).
  
 ## Configuration options
