@@ -28,7 +28,7 @@ sensor:
     pinned: true
 ```
 
-## Instalation
+## Installation
 
 Download [*sensor.py*](https://github.com/PiotrMachowski/Home-Assistant-custom-components-Google-Keep/raw/master/custom_components/google_keep/sensor.py) and [*manifest.json*](https://github.com/PiotrMachowski/Home-Assistant-custom-components-Google-Keep/raw/master/custom_components/google_keep/manifest.json) to `config/custom_components/google_keep` directory:
 ```bash
