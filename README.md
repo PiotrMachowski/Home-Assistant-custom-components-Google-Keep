@@ -36,7 +36,7 @@ Download [*sensor.py*](https://github.com/PiotrMachowski/Home-Assistant-custom-c
 ```bash
 mkdir -p custom_components/google_keep
 cd custom_components/google_keep
-wget https://github.com/PiotrMachowski/Home-Assistant-custom-components-Google-Keep/raw/master/custom_components/google_keep/binary_sensor.py
+wget https://github.com/PiotrMachowski/Home-Assistant-custom-components-Google-Keep/raw/master/custom_components/google_keep/sensor.py
 wget https://github.com/PiotrMachowski/Home-Assistant-custom-components-Google-Keep/raw/master/custom_components/google_keep/manifest.json
 ```
 
