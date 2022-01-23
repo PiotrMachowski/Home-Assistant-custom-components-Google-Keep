@@ -1,0 +1,27 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  release:
+    name: Prepare release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download repo
+        uses: actions/checkout@v1
+
+      - name: Zip google_keep dir
+        run: |
+          cd /home/runner/work/Home-Assistant-custom-components-Google-Keep/Home-Assistant-custom-components-Google-Keep/custom_components/google_keep
+          zip google_keep.zip -r ./
+
+      - name: Upload zip to release
+        uses: svenstaro/upload-release-action@v1-release
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: /home/runner/work/Home-Assistant-custom-components-Google-Keep/Home-Assistant-custom-components-Google-Keep/custom_components/froggy/google_keep.zip
+          asset_name: google_keep.zip
+          tag: ${{ github.ref }}
+          overwrite: true

@@ -1,0 +1,7 @@
+{
+  "name": "Google Keep",
+  "render_readme": true,
+  "domains": ["sensor"],
+  "zip_release": true,
+  "filename": "google_keep.zip"
+}
