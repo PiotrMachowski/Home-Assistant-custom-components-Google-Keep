@@ -72,7 +72,7 @@ class GoogleKeepSensor(Entity):
         return None
 
     @property
-    def device_state_attributes(self):
+    def extra_state_attributes(self):
         attr = dict()
         attr['notes'] = self._notes
         attr[CONF_TITLES] = self._titles
