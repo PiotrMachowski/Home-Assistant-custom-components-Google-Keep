@@ -1,11 +1,12 @@
 import hashlib
+
+import gkeepapi
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 from gkeepapi.node import NodeType
-from homeassistant.components.sensor import PLATFORM_SCHEMA, ENTITY_ID_FORMAT
-from homeassistant.const import CONF_NAME, CONF_USERNAME, CONF_PASSWORD
-from homeassistant.helpers.entity import Entity
-from homeassistant.helpers.entity import async_generate_entity_id
+from homeassistant.components.sensor import ENTITY_ID_FORMAT, PLATFORM_SCHEMA
+from homeassistant.const import CONF_NAME, CONF_PASSWORD, CONF_USERNAME
+from homeassistant.helpers.entity import async_generate_entity_id, Entity
 
 DEFAULT_NAME = 'Google Keep'
 CONF_TITLES = 'titles'
@@ -34,7 +35,6 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
     titles = config.get(CONF_TITLES)
     labels = config.get(CONF_LABELS)
     pinned = config.get(CONF_PINNED)
-    import gkeepapi
     keep = gkeepapi.Keep()
     login_success = keep.login(username, password)
     if not login_success:
@@ -72,7 +72,7 @@ class GoogleKeepSensor(Entity):
         return None
 
     @property
-    def device_state_attributes(self):
+    def extra_state_attributes(self):
         attr = dict()
         attr['notes'] = self._notes
         attr[CONF_TITLES] = self._titles
@@ -107,7 +107,8 @@ class GoogleKeepSensor(Entity):
                 unchecked = list(map(lambda n: str(n), note.unchecked))
                 children = list(
                     map(lambda c: GoogleKeepSensor.map_node(c), filter(lambda c: not c.indented, note.items)))
-            parsed_note = GoogleKeepSensor.make_note(str(note_type), title, lines, children, checked, unchecked, color, url)
+            parsed_note = GoogleKeepSensor.make_note(str(note_type), title, lines, children, checked, unchecked, color,
+                                                     url)
             self._notes.append(parsed_note)
 
     @staticmethod
