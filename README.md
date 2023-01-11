@@ -40,7 +40,7 @@ This sensor downloads a list of notes from [*Google Keep*](https://keep.google.c
 | `pinned` | `boolean` | `False` | `False` | Activates downloaded limiting notes to pinned ones |
 
 ## Example usage
-
+Add this to your "configuration.yaml"
 ```
 sensor:
   - platform: google_keep
@@ -49,6 +49,11 @@ sensor:
     labels:
       - 'Home Assistant'
     pinned: true
+```
+While the username and password is added in "secrets.yaml"
+```
+  google_keep.username: username@gmail.com
+  google_keep.password: password
 ```
 
 ## Installation
