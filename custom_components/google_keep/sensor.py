@@ -7,6 +7,7 @@ from gkeepapi.node import NodeType
 from homeassistant.components.sensor import ENTITY_ID_FORMAT, PLATFORM_SCHEMA
 from homeassistant.const import CONF_NAME, CONF_PASSWORD, CONF_USERNAME
 from homeassistant.helpers.entity import async_generate_entity_id, Entity
+import keyring
 
 DEFAULT_NAME = 'Google Keep'
 CONF_TITLES = 'titles'
@@ -36,12 +37,26 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
     labels = config.get(CONF_LABELS)
     pinned = config.get(CONF_PINNED)
     keep = gkeepapi.Keep()
-    login_success = keep.login(username, password)
-    if not login_success:
-        raise Exception('Invalid username or password')
+
+    token = keyring.get_password("google-keep-token", username)
+    logged_in = False
+
+    # Use an existing master token if one exists
+    if token:
+        try:
+            keep.resume(username, token)
+            logged_in = True
+        except gkeepapi.exception.LoginException:
+            None
+
+    # Otherwise, use credentials and login
+    if not logged_in:
+        login_success = keep.login(username, password)
+        if not login_success:
+            raise Exception('Invalid username or password')
     dev = []
     hash_value = hashlib.md5(str((username, str(titles), str(labels), pinned)).encode()).hexdigest()[-10:]
-    uid = '{}_{}'.format(sensor_name, hash_value)
+    uid = sensor_name #'{}_{}'.format(sensor_name, hash_value)
     entity_id = async_generate_entity_id(ENTITY_ID_FORMAT, uid, hass=hass)
     dev.append(GoogleKeepSensor(entity_id, sensor_name, username, keep, titles, labels, pinned))
     add_entities(dev, True)
@@ -61,7 +76,7 @@ class GoogleKeepSensor(Entity):
 
     @property
     def name(self):
-        return '{} - {}'.format(self._name, self._username)
+        return self._name #'{} - {}'.format(self._name, self._username)
 
     @property
     def state(self):

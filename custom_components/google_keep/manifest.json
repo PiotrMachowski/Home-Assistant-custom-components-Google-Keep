@@ -5,7 +5,7 @@
   "issue_tracker": "https://github.com/PiotrMachowski/Home-Assistant-custom-components-Google-Keep/issues",
   "dependencies": [],
   "codeowners": ["@PiotrMachowski"],
-  "requirements": ["gkeepapi==0.11.16"],
+  "requirements": ["gkeepapi==0.11.16","keyring==24.3.0"],
   "version": "v1.1.4",
   "iot_class": "cloud_polling"
 }
